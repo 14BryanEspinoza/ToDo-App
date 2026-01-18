@@ -1,16 +1,118 @@
 /* Reset */
 * {
-	box-sizing: border-box;
-	margin: 0;
-	padding: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 /* Global */
 html {
-	scrollbar-width: thin;
-	scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scroll-behavior: smooth;
 }
 
 body {
-	font-size: 14px;
+  font-family: "Patrick Hand", cursive;
+  font-size: 14px;
+}
+
+/* Header */
+.header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 35dvh;
+  gap: 0.2rem;
+  color: #ffffff;
+  background-image: url(../Assets/natural.png);
+  background-size: cover;
+  background-position: center;
+}
+
+.header h1 {
+  font-size: 2rem;
+}
+
+/* Main */
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 2rem;
+  color: #3b424a;
+  background-color: #94c1d6;
+}
+
+.footer__link {
+  display: flex;
+  justify-content: center;
+  gap: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.footer__link a {
+  text-decoration: none;
+  font-weight: 700;
+  color: #3b424a;
+}
+
+/* Media Queries */
+@media(min-width: 768px) {
+
+  /* Header */
+  .header {
+    gap: 0.4rem;
+  }
+
+  .header h1 {
+    font-size: 2.2rem;
+  }
+
+  .header p {
+    font-size: 1rem;
+  }
+
+  /* Footer */
+  .footer {
+    padding: 2.5rem;
+  }
+
+  .footer__link {
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
+  }
+
+  .footer__link a:hover {
+    transition: all 0.5s ease-in;
+    color: #86afcf;
+  }
+}
+
+@media(min-width: 1024px) {
+  /* Header */
+  .header {
+    gap: 0.5rem;
+  }
+
+  .header h1 {
+    font-size: 2.5rem;
+  }
+
+  .header p {
+    font-size: 1.2rem;
+  }
+
+  /* Footer */
+  .footer {
+    padding: 3rem;
+  }
+
+  .footer__link {
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+    font-size: 1.2rem;
+  }
 }
