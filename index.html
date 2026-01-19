@@ -37,6 +37,22 @@
       <p id="date">00-00-00</p>
     </header>
     <!-- Main -->
+    <main class="main">
+      <!-- Input Task -->
+      <form action="#" id="formTask" class="main__form">
+        <input
+          type="text"
+          id="task"
+          placeholder="Agregar Nueva Tarea..."
+          minlength="5"
+          maxlength="99"
+          required
+        />
+        <button type="submit">+</button>
+      </form>
+      <!-- Task View -->
+      <ul id="taskView" class="main__taskView"></ul>
+    </main>
     <!-- Footer -->
     <footer class="footer">
       <div class="footer__link">
