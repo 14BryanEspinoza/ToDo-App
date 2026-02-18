@@ -1,64 +1,50 @@
-# ToDo App
+# ToDo App - 14BryanEspinoza
 
-Aplicación web sencilla para gestionar tareas pendientes (ToDo).  
-Permite agregar, marcar como completadas y eliminar tareas, guardándolas en el navegador con **LocalStorage**.  
-Proyecto creado para practicar **HTML**, **CSS**, **JavaScript** y el uso de herramientas como **Git**, **GitHub** y **Warp**.
+## 🚀 Descripción del Proyecto
 
----
+Una aplicación de gestión de tareas moderna y elegante con diseño **Glassmorphism**, diseñada para una experiencia de usuario fluida y profesional. Integra:
 
-## 📸 Captura
+- **Diseño**: Uso de **Glassmorphism**, gradientes armónicos y tipografía moderna (Google Fonts).
+- **Sección de Estadísticas**: Panel interactivo para el seguimiento de tareas totales, hechas y pendientes.
+- **Sección de Tareas**: Listado dinámico con filtros (Todas, Pendientes, Hechas) y opción de limpieza masiva.
+- **Micro-interacciones**: Transiciones suaves, animaciones de hover y estados activos que mejoran la experiencia de usuario (UX).
+- **Optimización Mobile-First**: Layout totalmente responsivo y adaptado para dispositivos táctiles usando unidades modernas (`dvh`).
 
-![Captura de la ToDo App](./Assets/preview.png)
+## 🛠️ Tecnologías y Metodologías
 
----
+- **HTML5**: Estructura semántica avanzada para SEO y accesibilidad.
+- **CSS3 Puro**:
+  - **Variables CSS**: Sistema de diseño centralizado para colores, espacios y fuentes.
+  - **Flexbox & Grid**: Layouts robustos y modernos sin frameworks externos.
+  - **BEM Methodology**: Nomenclatura de clases estricta (`bloque__elemento--modificador`) para un CSS mantenibles.
+- **JavaScript (ES6+)**:
+  - Manipulación eficiente del DOM y eventos delegados.
+  - Generación de identificadores únicos con `crypto.randomUUID()`.
+  - Persistencia de datos en tiempo real con **LocalStorage**.
+- **Git & GitHub**: Control de versiones y despliegue continuo.
 
-## 🛠 Tecnologías usadas
+## 📱 Vista Previa
 
-- **HTML5**
-- **CSS3**
-  - Diseño responsivo
-  - Flexbox
-- **JavaScript (Vanilla)**
-  - Manejo del DOM
-  - Eventos
-  - `localStorage` para persistencia de datos
-- **Google Fonts** (`Patrick Hand`)
-- Herramientas de desarrollo:
-  - **Git**
-  - **GitHub**
-  - **Warp**
+A continuación se muestra una referencia visual del diseño actual:
 
----
+![Vista previa de la ToDo App](Assets/preview.png)
 
-## ✨ Funcionalidades
+## 🔗 Enlace al Proyecto
 
-- Mostrar la fecha actual en español en el encabezado.
-- Agregar nuevas tareas mediante un formulario:
-  - Validación de longitud mínima y máxima del texto.
-- Listar todas las tareas en pantalla.
-- Marcar tareas como **completadas** o **pendientes**:
-  - Estilo visual diferente para tareas completadas.
-- Eliminar tareas individualmente.
-- Persistencia de tareas usando **LocalStorage**:
-  - Las tareas se mantienen al recargar la página.
-  - Manejo de errores por si el JSON almacenado se corrompe.
+- **Sitio en vivo**: [Ver Proyecto](https://todoapp14bz.netlify.app/)
 
----
+## � Estado y Evolución
 
-## 🔗 Enlace al sitio publicado
+El proyecto se encuentra en un estado funcional avanzado, cumpliendo los requisitos de:
 
-- **Sitio publicado**:
+- [x] Diseño Responsivo (Mobile, Tablet, Desktop).
+- [x] Accesibilidad Web básica.
+- [x] Gestión de estado persistente.
 
-> `https://todoapp14bz.netlify.app/`
+**Próximos Pasos**:
 
----
+- Integración de animaciones de entrada con Scroll Reveal (manteniendo CSS puro).
+- Implementación de edición de tareas inline.
+- Optimización de activos y soporte para temas dinámicos.
 
-## 📦 Estado del proyecto
-
-- Estado actual: **En desarrollo / mejora continua**.
-- Funcionalidades básicas de ToDo: **implementadas**.
-- Posibles mejoras futuras:
-  - Edición de tareas.
-  - Filtros (todas / completadas / pendientes).
-  - Contador de tareas.
-  - Mejoras de accesibilidad y estilos.
+### Desarrollado por Bryan Espinoza - 2026

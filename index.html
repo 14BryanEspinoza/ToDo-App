@@ -16,7 +16,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Patrick+Hand&display=swap"
       rel="stylesheet"
     />
     <!-- Css -->
@@ -31,35 +31,76 @@
 
   <!-- Body -->
   <body>
-    <!-- Header -->
-    <header class="header">
-      <h1>ToDo App</h1>
-      <p id="date">00-00-00</p>
-    </header>
-    <!-- Main -->
-    <main class="main">
-      <!-- Input Task -->
-      <form action="#" id="formTask" class="main__form">
-        <input
-          type="text"
-          id="task"
-          placeholder="Agregar Nueva Tarea..."
-          minlength="5"
-          maxlength="99"
-          required
-        />
-        <button type="submit">+</button>
-      </form>
-      <!-- Task View -->
-      <ul id="taskView" class="main__taskView"></ul>
-    </main>
-    <!-- Footer -->
-    <footer class="footer">
-      <div class="footer__link">
-        <a href="https://github.com/14BryanEspinoza">GitHub</a>
-        <a href="https://www.linkedin.com/in/14bryanespinoza/">LinkedIn</a>
-      </div>
-      <p>Copyright &copy; 2026 - 14BryanEspinoza</p>
-    </footer>
+    <div class="bg-gradient"></div>
+    <div class="container">
+      <!-- Header -->
+      <header class="header">
+        <h1 class="header__title">ToDo App</h1>
+        <p id="date" class="header__date">00-00-00</p>
+      </header>
+
+      <!-- Stats Section -->
+      <section class="stats">
+        <div class="stats__item">
+          <span id="totalTasks">0</span>
+          <p>Totales</p>
+        </div>
+        <div class="stats__item">
+          <span id="completedTasks">0</span>
+          <p>Hechas</p>
+        </div>
+        <div class="stats__item">
+          <span id="pendingTasks">0</span>
+          <p>Pendientes</p>
+        </div>
+      </section>
+
+      <!-- Main -->
+      <main class="main">
+        <!-- Input Task -->
+        <form action="#" id="formTask" class="main__form">
+          <input
+            type="text"
+            id="task"
+            class="main__input"
+            placeholder="Agregar Nueva Tarea..."
+            minlength="5"
+            maxlength="99"
+            required
+          />
+          <button type="submit" class="main__button" aria-label="Agregar tarea">
+            +
+          </button>
+        </form>
+
+        <!-- Filters Bar -->
+        <div class="filters">
+          <button class="filters__btn filters__btn--active" data-filter="all">
+            Todas
+          </button>
+          <button class="filters__btn" data-filter="active">Pendientes</button>
+          <button class="filters__btn" data-filter="completed">Hechas</button>
+          <button id="clearCompleted" class="filters__btn filters__btn--clear">
+            Limpiar
+          </button>
+        </div>
+
+        <!-- Task View -->
+        <ul id="taskView" class="main__taskView"></ul>
+      </main>
+
+      <!-- Footer -->
+      <footer class="footer">
+        <div class="footer__link">
+          <a href="https://github.com/14BryanEspinoza" target="_blank"
+            >GitHub</a
+          >
+          <a href="https://www.linkedin.com/in/14bryanespinoza/" target="_blank"
+            >LinkedIn</a
+          >
+        </div>
+        <p class="footer__text">Copyright &copy; 2026 - 14BryanEspinoza</p>
+      </footer>
+    </div>
   </body>
 </html>
