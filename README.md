@@ -21,19 +21,44 @@ Una aplicación de gestión de tareas moderna y elegante con diseño **Glassmorp
   - Manipulación eficiente del DOM y eventos delegados.
   - Generación de identificadores únicos con `crypto.randomUUID()`.
   - Persistencia de datos en tiempo real con **LocalStorage**.
-- **Git & GitHub**: Control de versiones y despliegue continuo.
+  - Renderizado seguro contra XSS usando `createElement` + `textContent`.
+- **Git & GitHub**: Control de versiones, linting automatizado y despliegue continuo vía **GitHub Actions**.
+- **Tooling**:
+  - **ESLint 9** (flat config) + **Prettier** para calidad y formato consistente.
+  - **Husky + lint-staged** con hooks de pre-commit.
+  - **pnpm** como gestor de paquetes.
 
 ## 📱 Vista Previa
 
 A continuación se muestra una referencia visual del diseño actual:
 
-![Vista previa de la ToDo App](Assets/preview.png)
+![Vista previa de la ToDo App](assets/preview.png)
 
 ## 🔗 Enlace al Proyecto
 
-- **Sitio en vivo**: [Ver Proyecto](https://todoapp14bz.netlify.app/)
+- **Sitio en vivo**: [Ver Proyecto](https://14bryanespinoza.github.io/ToDo-App/)
 
-## � Estado y Evolución
+## 📦 Despliegue (GitHub Pages)
+
+El despliegue se automatiza con **GitHub Actions** (`.github/workflows/deploy.yml`):
+
+- **Trigger**: push a la rama `main`.
+- **Job `lint`**: instala dependencias y ejecuta `pnpm lint` (ESLint + Prettier check).
+- **Job `deploy`**: publica el sitio en GitHub Pages con permisos mínimos (`contents: read`, `pages: write`, `id-token: write`).
+- **Concurrencia**: deploys cancelables para evitar colisiones.
+
+Para activar el deploy:
+
+1. En el repositorio: **Settings → Pages → Source: GitHub Actions**.
+2. Hacer merge de `develop` a `main` y pushear.
+
+## 🧪 Calidad y Linting
+
+- `pnpm lint` — ejecuta ESLint (flat config en `eslint.config.js`).
+- `pnpm format` — formatea con Prettier.
+- Los hooks de **husky + lint-staged** corren ESLint y Prettier en cada commit.
+
+## 📈 Estado y Evolución
 
 El proyecto se encuentra en un estado funcional avanzado, cumpliendo los requisitos de:
 
