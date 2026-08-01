@@ -163,12 +163,7 @@ body {
 
 /* Main Content */
 .main {
-  background: var(--bg-glass);
-  backdrop-filter: blur(12px);
-  border: 1px solid var(--glass-border);
-  border-radius: 1.5rem;
   padding: 1.5rem;
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 }
 
 /* Form */
@@ -272,6 +267,7 @@ body {
   max-height: 30dvh;
   overflow-y: auto;
   padding-right: 0.5rem;
+  scrollbar-gutter: stable;
 }
 
 .main__taskView::-webkit-scrollbar {
