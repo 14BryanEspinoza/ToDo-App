@@ -31,12 +31,13 @@
 
   <!-- Body -->
   <body>
+    <a href="#main" class="skip-link">Saltar al contenido principal</a>
     <div class="bg-gradient"></div>
     <div class="container">
       <!-- Header -->
       <header class="header">
         <h1 class="header__title">ToDo App</h1>
-        <p id="date" class="header__date">00-00-00</p>
+        <time id="date" class="header__date" datetime="">00-00-00</time>
       </header>
 
       <!-- Stats Section -->
@@ -56,9 +57,10 @@
       </section>
 
       <!-- Main -->
-      <main class="main">
+      <main class="main" id="main">
         <!-- Input Task -->
         <form action="#" id="formTask" class="main__form">
+          <label for="task" class="sr-only">Nueva tarea</label>
           <input
             type="text"
             id="task"
@@ -92,10 +94,16 @@
       <!-- Footer -->
       <footer class="footer">
         <div class="footer__link">
-          <a href="https://github.com/14BryanEspinoza" target="_blank"
+          <a
+            href="https://github.com/14BryanEspinoza"
+            target="_blank"
+            rel="noopener noreferrer"
             >GitHub</a
           >
-          <a href="https://www.linkedin.com/in/14bryanespinoza/" target="_blank"
+          <a
+            href="https://www.linkedin.com/in/14bryanespinoza/"
+            target="_blank"
+            rel="noopener noreferrer"
             >LinkedIn</a
           >
         </div>

@@ -31,6 +31,8 @@ const updateDate = () => {
 
   // Convierte la fecha a string y la muestra en el DOM
   dom.date.innerText = now.toLocaleDateString("es-ES", options).toLowerCase();
+  // Formato machine-readable para accesibilidad
+  dom.date.dateTime = now.toISOString();
 };
 
 // PERSISTENCIA (LocalStorage)
@@ -128,7 +130,11 @@ function renderTasks() {
 
   // Si no hay tareas, muestra un mensaje
   if (filteredTasks.length === 0) {
-    dom.taskView.innerHTML = `<p style="text-align: center; color: var(--text-muted); padding: 2rem;">No hay tareas para mostrar.</p>`;
+    const li = document.createElement("li");
+    li.className = "taskView__empty";
+    li.setAttribute("role", "status");
+    li.textContent = "No hay tareas para mostrar.";
+    dom.taskView.appendChild(li);
     return;
   }
 
