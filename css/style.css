@@ -9,8 +9,8 @@
   --glass-border: rgba(255, 255, 255, 0.1);
   --danger: #ef4444;
   --success: #10b981;
-  --font-main: 'Inter', sans-serif;
-  --font-accent: 'Patrick Hand', cursive;
+  --font-main: "Inter", sans-serif;
+  --font-accent: "Patrick Hand", cursive;
 }
 
 /* Reset & Global */
@@ -323,7 +323,7 @@ body {
 }
 
 .item__check:checked::after {
-  content: '✓';
+  content: "✓";
   position: absolute;
   color: white;
   font-size: 0.8rem;
