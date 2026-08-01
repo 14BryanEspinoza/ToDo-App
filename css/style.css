@@ -9,8 +9,8 @@
   --glass-border: rgba(255, 255, 255, 0.1);
   --danger: #ef4444;
   --success: #10b981;
-  --font-main: 'Inter', sans-serif;
-  --font-accent: 'Patrick Hand', cursive;
+  --font-main: "Inter", sans-serif;
+  --font-accent: "Patrick Hand", cursive;
 }
 
 /* Reset & Global */
@@ -55,6 +55,36 @@ body {
   width: 90%;
   max-width: 500px;
   padding: 2rem;
+}
+
+/* Accessibility Utilities */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: fixed;
+  top: -100%;
+  left: 1rem;
+  z-index: 10;
+  padding: 0.75rem 1.25rem;
+  background: var(--accent-primary);
+  color: #fff;
+  text-decoration: none;
+  border-radius: 0.5rem;
+  transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+  top: 1rem;
 }
 
 /* Glassmorphism Utility  */
@@ -133,12 +163,7 @@ body {
 
 /* Main Content */
 .main {
-  background: var(--bg-glass);
-  backdrop-filter: blur(12px);
-  border: 1px solid var(--glass-border);
-  border-radius: 1.5rem;
   padding: 1.5rem;
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 }
 
 /* Form */
@@ -206,6 +231,7 @@ body {
   border: 1px solid var(--glass-border);
   border-radius: 0.5rem;
   padding: 0.4rem 0.8rem;
+  min-height: 44px;
   color: var(--text-muted);
   font-size: 0.8rem;
   cursor: pointer;
@@ -241,6 +267,7 @@ body {
   max-height: 30dvh;
   overflow-y: auto;
   padding-right: 0.5rem;
+  scrollbar-gutter: stable;
 }
 
 .main__taskView::-webkit-scrollbar {
@@ -277,7 +304,18 @@ body {
   border-radius: 0.4rem;
   cursor: pointer;
   position: relative;
+  flex: none;
   transition: all 0.3s ease;
+}
+
+.item__check::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 44px;
+  height: 44px;
 }
 
 .item__check:checked {
@@ -285,7 +323,7 @@ body {
 }
 
 .item__check:checked::after {
-  content: '✓';
+  content: "✓";
   position: absolute;
   color: white;
   font-size: 0.8rem;
@@ -311,6 +349,8 @@ body {
   color: var(--text-muted);
   cursor: pointer;
   padding: 0.5rem;
+  min-width: 44px;
+  min-height: 44px;
   border-radius: 0.5rem;
   transition: all 0.3s ease;
 }
@@ -318,6 +358,34 @@ body {
 .item__button:hover {
   background: rgba(239, 68, 68, 0.1);
   color: var(--danger);
+}
+
+/* Accessibility */
+.taskView__empty {
+  text-align: center;
+  color: var(--text-muted);
+  padding: 2rem;
+}
+
+.main__button:focus-visible,
+.filters__btn:focus-visible,
+.item__check:focus-visible,
+.item__button:focus-visible,
+.main__input:focus-visible,
+.footer__link a:focus-visible {
+  outline: 2px solid var(--accent-secondary);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 /* Footer */
