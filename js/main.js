@@ -24,10 +24,8 @@ let currentFilter = "all";
 
 // Manejo de Fechas
 const updateDate = () => {
-  // Actualiza la fecha
   const now = new Date();
 
-  // Opciones de formato de fecha
   const options = {
     weekday: "long",
     year: "numeric",
@@ -35,7 +33,6 @@ const updateDate = () => {
     day: "numeric",
   };
 
-  // Convierte la fecha a string y la muestra en el DOM
   dom.date.innerText = now.toLocaleDateString("es-ES", options).toLowerCase();
   // Formato machine-readable para accesibilidad
   dom.date.dateTime = now.toISOString();
@@ -49,13 +46,10 @@ const isValidTask = (task) =>
   typeof task.done === "boolean";
 
 const loadTasks = () => {
-  // Carga las tareas desde el LocalStorage
   const item = localStorage.getItem(STORAGE_KEY);
 
-  // Si no hay tareas, devuelve un array vacío
   if (!item) return [];
 
-  // Intenta parsear las tareas
   try {
     const parsed = JSON.parse(item);
     return Array.isArray(parsed) ? parsed.filter(isValidTask) : [];
@@ -66,9 +60,7 @@ const loadTasks = () => {
 };
 
 const saveTasks = () => {
-  // Guarda las tareas en el LocalStorage
   localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
-  updateStats();
 };
 
 // Estadísticas
@@ -140,7 +132,7 @@ const showEmptyState = () => {
 };
 
 const syncEmptyState = () => {
-  // Muestra el empty state solo si no quedan tareas visibles
+  // Solo si no quedan tareas visibles
   if (dom.taskView.querySelector(".taskView__item")) return;
 
   if (!dom.taskView.querySelector(".taskView__empty")) {
@@ -149,12 +141,11 @@ const syncEmptyState = () => {
 };
 
 // Crea el <li> de una tarea (sin listeners; se usa event delegation)
-function createTaskItem(task) {
+const createTaskItem = (task) => {
   const li = document.createElement("li");
   li.className = `taskView__item ${task.done ? "taskView__item--done" : ""}`;
   li.dataset.id = task.id;
 
-  // Crea el checkbox
   const checkbox = document.createElement("input");
   checkbox.type = "checkbox";
   checkbox.className = "item__check";
@@ -166,26 +157,25 @@ function createTaskItem(task) {
       : `Marcar "${task.text}" como completada`,
   );
 
-  // Crea el texto de la tarea (textContent evita inyección XSS)
+  // textContent evita inyección XSS
   const span = document.createElement("span");
   span.className = "item__text";
   span.textContent = task.text;
 
-  // Crea el botón de eliminar (SVG estático, sin datos de usuario)
+  // SVG estático, sin datos de usuario (innerHTML seguro)
   const deleteBtn = document.createElement("button");
   deleteBtn.className = "item__button";
   deleteBtn.type = "button";
   deleteBtn.title = "Eliminar tarea";
   deleteBtn.setAttribute("aria-label", `Eliminar tarea "${task.text}"`);
   deleteBtn.innerHTML = `
-    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"></path><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"></path><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-1-1-2-2V6"></path><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path></svg>
   `;
 
   li.append(checkbox, span, deleteBtn);
   return li;
-}
+};
 
-// Busca el <li> de una tarea por su id
 const findTaskItem = (id) =>
   [...dom.taskView.querySelectorAll(".taskView__item")].find(
     (el) => el.dataset.id === id,
@@ -193,17 +183,17 @@ const findTaskItem = (id) =>
 
 // LÓGICA DE TAREAS (con re-render dirigido)
 const addTask = (text) => {
-  // Crea una nueva tarea
   const newTask = {
-    id: crypto.randomUUID(), // Usamos UUID para IDs más robustos
+    id: crypto.randomUUID(), // UUID para IDs más robustos
     text: text.trim(),
     done: false,
     createdAt: new Date().toISOString(),
   };
 
-  tasks.unshift(newTask); // Agrega la nueva tarea al inicio del array
+  tasks.unshift(newTask);
 
   saveTasks();
+  updateStats();
 
   // Solo agrega el <li> si la tarea pasa el filtro activo
   if (matchesFilter(newTask)) {
@@ -217,16 +207,14 @@ const addTask = (text) => {
 };
 
 const toggleTask = (id) => {
-  // Busca la tarea por su ID
   const task = tasks.find((t) => t.id === id);
 
-  // Si no encuentra la tarea, sale de la función
   if (!task) return;
 
-  // Cambia el estado de la tarea (completada o pendiente)
   task.done = !task.done;
 
   saveTasks();
+  updateStats();
 
   const item = findTaskItem(id);
 
@@ -258,10 +246,10 @@ const deleteTask = (id) => {
   // Captura la tarea antes de eliminarla para el anuncio
   const deleted = tasks.find((t) => t.id === id);
 
-  // Filtra las tareas, manteniendo solo las que NO coincidan con el ID
   tasks = tasks.filter((t) => t.id !== id);
 
   saveTasks();
+  updateStats();
 
   findTaskItem(id)?.remove();
   syncEmptyState();
@@ -270,15 +258,13 @@ const deleteTask = (id) => {
 };
 
 const clearCompleted = () => {
-  // Cuenta las tareas a eliminar antes de filtrar
   const cleared = tasks.filter((t) => t.done).length;
 
-  // Elimina las tareas completadas
   tasks = tasks.filter((t) => !t.done);
 
   saveTasks();
+  updateStats();
 
-  // Elimina del DOM solo los <li> completados
   dom.taskView
     .querySelectorAll(".taskView__item--done")
     .forEach((item) => item.remove());
@@ -290,59 +276,47 @@ const clearCompleted = () => {
 };
 
 // RENDERIZADO (inicialización y cambio de filtro)
-function renderTasks() {
-  // Limpia la vista de tareas
+const renderTasks = () => {
   dom.taskView.innerHTML = "";
 
-  // Aplicar filtrado
   const filteredTasks = tasks.filter(matchesFilter);
 
-  // Si no hay tareas, muestra un mensaje
   if (filteredTasks.length === 0) {
     showEmptyState();
     return;
   }
 
-  // Recorre las tareas y crea un elemento para cada una
   filteredTasks.forEach((task) => {
     dom.taskView.appendChild(createTaskItem(task));
   });
-}
+};
 
 // INICIALIZACIÓN Y EVENTOS
 const init = () => {
   updateDate();
   initTheme();
 
-  // Carga las tareas
   tasks = loadTasks();
 
   updateStats();
   renderTasks();
 
-  // Formulario
   dom.form.addEventListener("submit", (e) => {
-    // Previene el comportamiento por defecto del formulario
     e.preventDefault();
 
-    // Obtiene el valor del input y limpia espacios
     const text = dom.taskInput.value.trim();
 
-    // Si el valor es mayor o igual a 5 caracteres, agrega la tarea
     if (text.length >= 5) {
       addTask(text);
       dom.taskInput.value = "";
     }
   });
 
-  // Filtros
   dom.filterBtns.forEach((btn) => {
     btn.addEventListener("click", () => {
-      // Actualiza la UI
       dom.filterBtns.forEach((b) => b.classList.remove("filters__btn--active"));
       btn.classList.add("filters__btn--active");
 
-      // Actualiza el estado
       currentFilter = btn.dataset.filter;
 
       renderTasks();

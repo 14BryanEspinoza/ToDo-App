@@ -44,6 +44,7 @@
   --glass-border: light-dark(rgba(15, 23, 42, 0.12), rgba(255, 255, 255, 0.1));
   --danger: #ef4444;
   --success: #10b981;
+  --on-accent: #ffffff;
   --font-main: "Inter", sans-serif;
   --font-accent: "Patrick Hand", cursive;
 }
@@ -166,7 +167,7 @@ body {
   z-index: 10;
   padding: 0.75rem 1.25rem;
   background: var(--accent-primary);
-  color: #fff;
+  color: var(--on-accent);
   text-decoration: none;
   border-radius: 0.5rem;
   transition: top 0.2s ease;
@@ -333,7 +334,9 @@ html[data-theme="dark"] .icon--sun {
   color: var(--text-main);
   font-family: var(--font-main);
   outline: none;
-  transition: all var(--transition-base);
+  transition:
+    background-color var(--transition-base),
+    border-color var(--transition-base);
 }
 
 .main__input::placeholder {
@@ -360,7 +363,7 @@ html[data-theme="dark"] .icon--sun {
   border-radius: var(--radius-md);
   width: 3rem;
   height: 3rem;
-  color: white;
+  color: var(--on-accent);
   font-size: 1.5rem;
   cursor: pointer;
   transition:
@@ -397,7 +400,9 @@ html[data-theme="dark"] .icon--sun {
   font-size: 0.8rem;
   cursor: pointer;
   white-space: nowrap;
-  transition: all var(--transition-base);
+  transition:
+    background-color var(--transition-base),
+    color var(--transition-base);
 }
 
 .filters__btn:hover {
@@ -407,7 +412,7 @@ html[data-theme="dark"] .icon--sun {
 
 .filters__btn--active {
   background: var(--accent-primary);
-  color: white;
+  color: var(--on-accent);
   border-color: var(--accent-primary);
 }
 
@@ -465,7 +470,7 @@ html[data-theme="dark"] .icon--sun {
   background: transparent;
   color: var(--text-main);
   cursor: pointer;
-  transition: all var(--transition-base);
+  transition: background-color var(--transition-base);
 }
 
 .confirm__btn:hover {
@@ -510,7 +515,9 @@ html[data-theme="dark"] .icon--sun {
   border-radius: var(--radius-lg);
   margin-bottom: var(--space-3);
   border: 1px solid transparent;
-  transition: all var(--transition-base);
+  transition:
+    background-color var(--transition-base),
+    border-color var(--transition-base);
   animation: taskIn var(--transition-slow) ease-out both;
 }
 
@@ -539,7 +546,9 @@ html[data-theme="dark"] .icon--sun {
   cursor: pointer;
   position: relative;
   flex: none;
-  transition: all 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease;
 }
 
 .item__check::before {
@@ -559,7 +568,7 @@ html[data-theme="dark"] .icon--sun {
 .item__check:checked::after {
   content: "✓";
   position: absolute;
-  color: white;
+  color: var(--on-accent);
   font-size: 0.8rem;
   top: 50%;
   left: 50%;
@@ -569,7 +578,7 @@ html[data-theme="dark"] .icon--sun {
 .item__text {
   flex: 1;
   font-size: 0.95rem;
-  transition: all 0.3s ease;
+  transition: color 0.3s ease;
 }
 
 .taskView__item--done .item__text {
@@ -586,7 +595,9 @@ html[data-theme="dark"] .icon--sun {
   min-width: 44px;
   min-height: 44px;
   border-radius: var(--radius-sm);
-  transition: all var(--transition-base);
+  transition:
+    background-color var(--transition-base),
+    color var(--transition-base);
 }
 
 .item__button:hover {
