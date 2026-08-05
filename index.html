@@ -6,6 +6,17 @@
     <!-- Metadata -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="dark light" />
+    <meta
+      name="theme-color"
+      content="#0f172a"
+      media="(prefers-color-scheme: dark)"
+    />
+    <meta
+      name="theme-color"
+      content="#f8fafc"
+      media="(prefers-color-scheme: light)"
+    />
     <meta name="author" content="Bryan Espinoza" />
     <meta
       name="description"
@@ -36,6 +47,46 @@
     <div class="container">
       <!-- Header -->
       <header class="header">
+        <button
+          id="themeToggle"
+          class="header__toggle"
+          type="button"
+          aria-label="Cambiar a modo claro"
+        >
+          <svg
+            class="icon icon--sun"
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <circle cx="12" cy="12" r="5"></circle>
+            <path
+              d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"
+            ></path>
+          </svg>
+          <svg
+            class="icon icon--moon"
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
         <h1 class="header__title">ToDo App</h1>
         <time id="date" class="header__date" datetime="">00-00-00</time>
       </header>
@@ -55,6 +106,18 @@
           <p>Pendientes</p>
         </div>
       </section>
+
+      <div
+        class="stats__progress"
+        id="progressBar"
+        role="progressbar"
+        aria-label="Progreso de tareas completadas"
+        aria-valuemin="0"
+        aria-valuemax="100"
+        aria-valuenow="0"
+      >
+        <span id="progressFill" class="stats__progress-fill"></span>
+      </div>
 
       <!-- Main -->
       <main class="main glass" id="main">

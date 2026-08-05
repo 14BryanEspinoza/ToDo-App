@@ -9,10 +9,14 @@ const dom = {
   pendingTasks: document.getElementById("pendingTasks"),
   filterBtns: document.querySelectorAll(".filters__btn"),
   clearBtn: document.getElementById("clearCompleted"),
+  themeToggle: document.getElementById("themeToggle"),
+  progressBar: document.getElementById("progressBar"),
+  progressFill: document.getElementById("progressFill"),
 };
 
 // CONSTANTES Y ESTADO
 const STORAGE_KEY = "tasks";
+const THEME_KEY = "theme";
 let tasks = [];
 let currentFilter = "all";
 
@@ -64,10 +68,43 @@ const updateStats = () => {
   const total = tasks.length;
   const completed = tasks.filter((t) => t.done).length;
   const pending = total - completed;
+  const percent = total > 0 ? Math.round((completed / total) * 100) : 0;
 
   dom.totalTasks.innerText = total;
   dom.completedTasks.innerText = completed;
   dom.pendingTasks.innerText = pending;
+  dom.progressBar.setAttribute("aria-valuenow", percent);
+  dom.progressFill.style.width = `${percent}%`;
+};
+
+// Tema claro/oscuro
+const getPreferredTheme = () => {
+  const stored = localStorage.getItem(THEME_KEY);
+
+  if (stored === "light" || stored === "dark") return stored;
+
+  return window.matchMedia("(prefers-color-scheme: light)").matches
+    ? "light"
+    : "dark";
+};
+
+const setTheme = (theme) => {
+  document.documentElement.dataset.theme = theme;
+  localStorage.setItem(THEME_KEY, theme);
+  dom.themeToggle.setAttribute(
+    "aria-label",
+    theme === "dark" ? "Cambiar a modo claro" : "Cambiar a modo oscuro",
+  );
+};
+
+const initTheme = () => {
+  setTheme(getPreferredTheme());
+
+  dom.themeToggle.addEventListener("click", () => {
+    const next =
+      document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+    setTheme(next);
+  });
 };
 
 // LÓGICA DE TAREAS
@@ -184,6 +221,7 @@ function renderTasks() {
 // INICIALIZACIÓN Y EVENTOS
 const init = () => {
   updateDate();
+  initTheme();
 
   // Carga las tareas
   tasks = loadTasks();
