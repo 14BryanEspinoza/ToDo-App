@@ -1,17 +1,54 @@
 <!doctype html>
-<!-- Lang -->
 <html lang="es">
-  <!-- Head -->
   <head>
-    <!-- Metadata -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="dark light" />
+    <meta
+      name="theme-color"
+      content="#0f172a"
+      media="(prefers-color-scheme: dark)"
+    />
+    <meta
+      name="theme-color"
+      content="#f8fafc"
+      media="(prefers-color-scheme: light)"
+    />
+    <!-- Open Graph -->
+    <meta property="og:title" content="ToDo App" />
+    <meta
+      property="og:description"
+      content="Gestión de tareas con diseño glassmorphism, tema claro/oscuro y persistencia local."
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:url"
+      content="https://14bryanespinoza.github.io/todo-app/"
+    />
+    <meta
+      property="og:image"
+      content="https://14bryanespinoza.github.io/todo-app/assets/preview.png"
+    />
+    <meta property="og:locale" content="es_ES" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="ToDo App" />
+    <meta
+      name="twitter:description"
+      content="Gestión de tareas con diseño glassmorphism, tema claro/oscuro y persistencia local."
+    />
+    <meta
+      name="twitter:image"
+      content="https://14bryanespinoza.github.io/todo-app/assets/preview.png"
+    />
     <meta name="author" content="Bryan Espinoza" />
     <meta
       name="description"
       content="Este es un proyecto para practicar mi nivel de Html, Css y Js con herramientas como git, github y Warp"
     />
     <meta name="keywords" content="ToDo, 14BryanEspinoza, Practica" />
+    <link rel="canonical" href="https://14bryanespinoza.github.io/todo-app/" />
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -19,23 +56,58 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Patrick+Hand&display=swap"
       rel="stylesheet"
     />
-    <!-- Css -->
     <link rel="stylesheet" href="css/style.css" />
-    <!-- Script -->
     <script src="js/main.js" defer></script>
-    <!-- Icon -->
     <link rel="shortcut icon" href="assets/icon.png" type="image/png" />
-    <!--Title -->
     <title>ToDo App</title>
   </head>
 
-  <!-- Body -->
   <body>
     <a href="#main" class="skip-link">Saltar al contenido principal</a>
     <div class="bg-gradient"></div>
     <div class="container">
       <!-- Header -->
       <header class="header">
+        <button
+          id="themeToggle"
+          class="header__toggle"
+          type="button"
+          aria-label="Cambiar a modo claro"
+        >
+          <svg
+            class="icon icon--sun"
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <circle cx="12" cy="12" r="5"></circle>
+            <path
+              d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"
+            ></path>
+          </svg>
+          <svg
+            class="icon icon--moon"
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
         <h1 class="header__title">ToDo App</h1>
         <time id="date" class="header__date" datetime="">00-00-00</time>
       </header>
@@ -55,6 +127,18 @@
           <p>Pendientes</p>
         </div>
       </section>
+
+      <div
+        class="stats__progress"
+        id="progressBar"
+        role="progressbar"
+        aria-label="Progreso de tareas completadas"
+        aria-valuemin="0"
+        aria-valuemax="100"
+        aria-valuenow="0"
+      >
+        <span id="progressFill" class="stats__progress-fill"></span>
+      </div>
 
       <!-- Main -->
       <main class="main glass" id="main">
@@ -110,5 +194,34 @@
         <p class="footer__text">Copyright &copy; 2026 - 14BryanEspinoza</p>
       </footer>
     </div>
+
+    <!-- Live Region (accesibilidad) -->
+    <div id="liveRegion" class="sr-only" aria-live="polite"></div>
+
+    <!-- Dialog de Confirmación -->
+    <dialog
+      id="confirmClear"
+      class="confirm"
+      aria-labelledby="confirmClearTitle"
+    >
+      <form method="dialog">
+        <h2 id="confirmClearTitle" class="confirm__title">
+          ¿Limpiar tareas completadas?
+        </h2>
+        <p class="confirm__text">
+          Esta acción eliminará todas las tareas hechas. No se puede deshacer.
+        </p>
+        <div class="confirm__actions">
+          <button value="cancel" class="confirm__btn">Cancelar</button>
+          <button
+            value="confirm"
+            class="confirm__btn confirm__btn--danger"
+            autofocus
+          >
+            Limpiar
+          </button>
+        </div>
+      </form>
+    </dialog>
   </body>
 </html>
