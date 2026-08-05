@@ -17,6 +17,28 @@
       content="#f8fafc"
       media="(prefers-color-scheme: light)"
     />
+    <!-- Open Graph -->
+    <meta property="og:title" content="ToDo App" />
+    <meta
+      property="og:description"
+      content="Gestión de tareas con diseño glassmorphism, tema claro/oscuro y persistencia local."
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:url"
+      content="https://14bryanespinoza.github.io/ToDo-App/"
+    />
+    <meta property="og:image" content="assets/preview.png" />
+    <meta property="og:locale" content="es_ES" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="ToDo App" />
+    <meta
+      name="twitter:description"
+      content="Gestión de tareas con diseño glassmorphism, tema claro/oscuro y persistencia local."
+    />
+    <meta name="twitter:image" content="assets/preview.png" />
     <meta name="author" content="Bryan Espinoza" />
     <meta
       name="description"
@@ -173,5 +195,34 @@
         <p class="footer__text">Copyright &copy; 2026 - 14BryanEspinoza</p>
       </footer>
     </div>
+
+    <!-- Live Region (accesibilidad) -->
+    <div id="liveRegion" class="sr-only" aria-live="polite"></div>
+
+    <!-- Dialog de Confirmación -->
+    <dialog
+      id="confirmClear"
+      class="confirm"
+      aria-labelledby="confirmClearTitle"
+    >
+      <form method="dialog">
+        <h2 id="confirmClearTitle" class="confirm__title">
+          ¿Limpiar tareas completadas?
+        </h2>
+        <p class="confirm__text">
+          Esta acción eliminará todas las tareas hechas. No se puede deshacer.
+        </p>
+        <div class="confirm__actions">
+          <button value="cancel" class="confirm__btn">Cancelar</button>
+          <button
+            value="confirm"
+            class="confirm__btn confirm__btn--danger"
+            autofocus
+          >
+            Limpiar
+          </button>
+        </div>
+      </form>
+    </dialog>
   </body>
 </html>

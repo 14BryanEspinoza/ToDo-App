@@ -12,6 +12,8 @@ const dom = {
   themeToggle: document.getElementById("themeToggle"),
   progressBar: document.getElementById("progressBar"),
   progressFill: document.getElementById("progressFill"),
+  liveRegion: document.getElementById("liveRegion"),
+  confirmClear: document.getElementById("confirmClear"),
 };
 
 // CONSTANTES Y ESTADO
@@ -77,6 +79,15 @@ const updateStats = () => {
   dom.progressFill.style.width = `${percent}%`;
 };
 
+// Anuncios de accesibilidad (aria-live)
+const announce = (message) => {
+  dom.liveRegion.textContent = "";
+  // Reintenta en el siguiente frame para re-disparar el anuncio
+  requestAnimationFrame(() => {
+    dom.liveRegion.textContent = message;
+  });
+};
+
 // Tema claro/oscuro
 const getPreferredTheme = () => {
   const stored = localStorage.getItem(THEME_KEY);
@@ -121,6 +132,7 @@ const addTask = (text) => {
 
   saveTasks();
   renderTasks();
+  announce(`Tarea añadida: ${newTask.text}`);
 };
 
 const toggleTask = (id) => {
@@ -135,22 +147,37 @@ const toggleTask = (id) => {
 
   saveTasks();
   renderTasks();
+  announce(
+    task.done
+      ? `Tarea completada: ${task.text}`
+      : `Tarea marcada como pendiente: ${task.text}`,
+  );
 };
 
 const deleteTask = (id) => {
+  // Captura la tarea antes de eliminarla para el anuncio
+  const deleted = tasks.find((t) => t.id === id);
+
   // Filtra las tareas, manteniendo solo las que NO coincidan con el ID
   tasks = tasks.filter((t) => t.id !== id);
 
   saveTasks();
   renderTasks();
+  announce(`Tarea eliminada: ${deleted ? deleted.text : ""}`);
 };
 
 const clearCompleted = () => {
+  // Cuenta las tareas a eliminar antes de filtrar
+  const cleared = tasks.filter((t) => t.done).length;
+
   // Elimina las tareas completadas
   tasks = tasks.filter((t) => !t.done);
 
   saveTasks();
   renderTasks();
+  if (cleared > 0) {
+    announce(`${cleared} ${cleared === 1 ? "tarea" : "tareas"} eliminadas`);
+  }
 };
 
 // RENDERIZADO
@@ -186,7 +213,12 @@ function renderTasks() {
     checkbox.type = "checkbox";
     checkbox.className = "item__check";
     checkbox.checked = task.done;
-    checkbox.setAttribute("aria-label", "Marcar como completada");
+    checkbox.setAttribute(
+      "aria-label",
+      task.done
+        ? `Marcar "${task.text}" como pendiente`
+        : `Marcar "${task.text}" como completada`,
+    );
 
     // Crea el texto de la tarea (textContent evita inyección XSS)
     const span = document.createElement("span");
@@ -198,6 +230,7 @@ function renderTasks() {
     deleteBtn.className = "item__button";
     deleteBtn.type = "button";
     deleteBtn.title = "Eliminar tarea";
+    deleteBtn.setAttribute("aria-label", `Eliminar tarea "${task.text}"`);
     deleteBtn.innerHTML = `
       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"></path><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path></svg>
     `;
@@ -258,8 +291,18 @@ const init = () => {
     });
   });
 
-  // Limpiar completadas
-  dom.clearBtn.addEventListener("click", clearCompleted);
+  // Limpiar completadas (con confirmación)
+  dom.clearBtn.addEventListener("click", () => {
+    if (tasks.some((t) => t.done)) {
+      dom.confirmClear.showModal();
+    }
+  });
+
+  dom.confirmClear.addEventListener("close", () => {
+    if (dom.confirmClear.returnValue === "confirm") {
+      clearCompleted();
+    }
+  });
 };
 
 // Ejecutar al cargar

@@ -422,6 +422,66 @@ html[data-theme="dark"] .icon--sun {
   border-color: var(--danger);
 }
 
+/* Dialog de Confirmación */
+.confirm {
+  width: min(90%, 380px);
+  padding: var(--space-6);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  background: var(--bg-glass);
+  color: var(--text-main);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: var(--shadow-lg);
+}
+
+.confirm::backdrop {
+  background: rgb(0 0 0 / 0.45);
+}
+
+.confirm__title {
+  font-size: 1.15rem;
+  margin-bottom: var(--space-2);
+}
+
+.confirm__text {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.confirm__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-2);
+  margin-top: var(--space-6);
+}
+
+.confirm__btn {
+  min-height: 44px;
+  padding: 0.5rem 1.25rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--glass-border);
+  background: transparent;
+  color: var(--text-main);
+  cursor: pointer;
+  transition: all var(--transition-base);
+}
+
+.confirm__btn:hover {
+  background: color-mix(in srgb, var(--text-main), transparent 93%);
+}
+
+.confirm__btn--danger {
+  color: var(--danger);
+  border-color: color-mix(in srgb, var(--danger), transparent 80%);
+}
+
+.confirm__btn--danger:hover {
+  background: color-mix(in srgb, var(--danger), transparent 90%);
+  border-color: var(--danger);
+}
+
 /* Task List */
 .main__taskView {
   flex: 1 1 auto;
@@ -558,6 +618,7 @@ html[data-theme="dark"] .icon--sun {
 .item__button:focus-visible,
 .main__input:focus-visible,
 .header__toggle:focus-visible,
+.confirm__btn:focus-visible,
 .footer__link a:focus-visible {
   outline: 2px solid var(--accent-secondary);
   outline-offset: 2px;
